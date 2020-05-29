@@ -7,6 +7,7 @@ public class OthelloCell : MonoBehaviour {
     public Image ChipImage;
     public Vector2 Location;
     public Text CellEffectText;
+    public int TurnNumber;
     public int OwnerID {
         get { return ownerID; }
         set
@@ -18,10 +19,11 @@ public class OthelloCell : MonoBehaviour {
             else
                 this.GetComponent<Button>().interactable = false;
         }
-    }    
+    }
     public void CellPressed() {
         if(OthelloBoard.Instance.CanPlaceHere(this.Location)) {
             OthelloBoard.Instance.PlaceHere(this);
+            OthelloBoard.Instance.EraseCellOverdTurn();
             OthelloBoard.Instance.EndTurn(false);
         }
     }

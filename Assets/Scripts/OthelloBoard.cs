@@ -11,27 +11,27 @@ public class OthelloBoard : MonoBehaviour {
     public Text BlackTurnText;
     public GameObject Template;
     public int BoardSize = 8;
-    public List<Color> PlayerChipColors;    
+    public List<Color> PlayerChipColors;
     public List<Vector2> DirectionList;
     static OthelloBoard instance;
     public static OthelloBoard Instance { get { return instance; } }
     OthelloCell[,] OthelloCells;
-    public int EnemyID { get { return (CurrentTurn+1) % 2; } }
+    public int EnemyID { get { return (CurrentTurn + 1) % 2; } }
     void Start()
     {
         instance = this;
         OthelloBoardIsSquareSize();
-       
+
         OthelloCells = new OthelloCell[BoardSize, BoardSize];
         float cellAnchorSize = 1.0f / BoardSize;
         for (int y = 0; y < BoardSize; y++)
         {
             for (int x = 0; x < BoardSize; x++)
             {
-                CreateNewCell(x,y, cellAnchorSize);
+                CreateNewCell(x, y, cellAnchorSize);
             }
         }
-        ScoreBoard.GetComponent<RectTransform>().SetSiblingIndex(BoardSize*BoardSize+1);
+        ScoreBoard.GetComponent<RectTransform>().SetSiblingIndex(BoardSize * BoardSize + 1);
         GameObject.Destroy(Template);
         InitializeGame();
     }
@@ -72,6 +72,12 @@ public class OthelloBoard : MonoBehaviour {
         OthelloCells[3, 4].OwnerID = 1;
 
         WhiteTurnText.text = "White Turn";
+
+        OthelloCells[3, 3].CellEffectText.text = "5";
+        OthelloCells[4, 4].CellEffectText.text = "5";
+        OthelloCells[4, 3].CellEffectText.text = "5";
+        OthelloCells[3, 4].CellEffectText.text = "5";
+
     }
     internal bool CanPlaceHere(Vector2 location)
     {
@@ -100,6 +106,7 @@ public class OthelloBoard : MonoBehaviour {
             }
         }
         OthelloCells[(int)othelloCell.Location.x, (int)othelloCell.Location.y].OwnerID = CurrentTurn;
+        OthelloCells[(int)othelloCell.Location.x, (int)othelloCell.Location.y].TurnNumber = 6;
     }
     private OthelloCell FindAllyChipOnOtherSide(Vector2 directionVector, Vector2 from, bool EnemyFound)
     {
@@ -126,6 +133,30 @@ public class OthelloBoard : MonoBehaviour {
         for (Vector2 location = from.Location + directionVector; location != to.Location; location += directionVector)
         {
             OthelloCells[(int)location.x, (int)location.y].OwnerID = CurrentTurn;
+            OthelloCells[(int)location.x, (int)location.y].TurnNumber = 6;
+        }
+    }
+    internal void EraseCellOverdTurn()
+    {
+        for (int y = 0; y < BoardSize; ++y)
+        {
+            for (int x = 0; x < BoardSize; ++x)
+            {
+                if (OthelloCells[x, y].OwnerID != -1)
+                {
+                    OthelloCells[x, y].TurnNumber--;
+                    if (OthelloCells[x, y].TurnNumber == 0)
+                    {
+                        OthelloCells[x, y].OwnerID = -1;
+                        OthelloCells[x, y].TurnNumber = 5;
+                        OthelloCells[x, y].CellEffectText.text = "";
+                    }
+                    else
+                    {
+                        OthelloCells[x, y].CellEffectText.text = (string)OthelloCells[x, y].TurnNumber.ToString();
+                    }
+                }
+            }
         }
     }
     internal void EndTurn(bool isAlreadyEnded)
