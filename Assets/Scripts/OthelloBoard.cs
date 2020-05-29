@@ -7,6 +7,8 @@ public class OthelloBoard : MonoBehaviour {
     public int CurrentTurn = 0;
     public GameObject ScoreBoard;
     public Text ScoreBoardText;
+    public Text WhiteTurnText;
+    public Text BlackTurnText;
     public GameObject Template;
     public int BoardSize = 8;
     public List<Color> PlayerChipColors;    
@@ -68,6 +70,8 @@ public class OthelloBoard : MonoBehaviour {
         OthelloCells[4, 4].OwnerID = 0;
         OthelloCells[4, 3].OwnerID = 1;
         OthelloCells[3, 4].OwnerID = 1;
+
+        WhiteTurnText.text = "White Turn";
     }
     internal bool CanPlaceHere(Vector2 location)
     {
@@ -125,8 +129,18 @@ public class OthelloBoard : MonoBehaviour {
         }
     }
     internal void EndTurn(bool isAlreadyEnded)
-    {        
+    {
         CurrentTurn = EnemyID;
+        if (CurrentTurn == 0)
+        {
+            WhiteTurnText.text = "White Turn";
+            BlackTurnText.text = "";
+        }
+        else 
+        {
+            WhiteTurnText.text = "";
+            BlackTurnText.text = "Black Turn";
+        }
         for (int y = 0; y < BoardSize; y++)
         {
             for (int x = 0; x < BoardSize; x++)
