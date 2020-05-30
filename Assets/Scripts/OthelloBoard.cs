@@ -83,6 +83,28 @@ public class OthelloBoard : MonoBehaviour {
         OthelloCells[4, 4].OwnerID = 0;
         OthelloCells[4, 3].OwnerID = 1;
         OthelloCells[3, 4].OwnerID = 1;
+        OthelloCells[4, 2].OwnerID = 2;
+        OthelloCells[2, 4].OwnerID = 2;
+        OthelloCells[5, 3].OwnerID = 2;
+        OthelloCells[3, 5].OwnerID = 2;
+
+    }
+    internal void ShowAllCanPlace()
+    {
+        for (int y = 0; y < BoardSize; y++)
+        {
+            for (int x = 0; x < BoardSize; x++)
+            {
+                if (OthelloCells[x, y].OwnerID == 2)
+                {
+                    OthelloCells[x, y].OwnerID = -1;
+                }
+                if (CanPlaceHere(new Vector2(x, y)))
+                {
+                    OthelloCells[x, y].OwnerID = 2;
+                }
+            }
+        }
     }
     internal bool CanPlaceHere(Vector2 location)
     {
@@ -121,7 +143,7 @@ public class OthelloBoard : MonoBehaviour {
     private OthelloCell FindAllyChipOnOtherSide(Vector2 directionVector, Vector2 from, bool EnemyFound)
     {
         Vector2 to = from + directionVector;
-        if (IsInRangeOfBoard(to) && OthelloCells[(int)to.x, (int)to.y].OwnerID != -1)
+        if (IsInRangeOfBoard(to) && (OthelloCells[(int)to.x, (int)to.y].OwnerID == 0 || OthelloCells[(int)to.x, (int)to.y].OwnerID == 1))
         {
             if (OthelloCells[(int)to.x, (int)to.y].OwnerID == OthelloBoard.Instance.CurrentTurn)
             {
@@ -153,7 +175,7 @@ public class OthelloBoard : MonoBehaviour {
         {
             for (int x = 0; x < BoardSize; ++x)
             {
-                if (OthelloCells[x, y].OwnerID != -1)
+                if (OthelloCells[x, y].OwnerID == 0 || OthelloCells[x, y].OwnerID == 1)
                 {
                     OthelloCells[x, y].TurnNumber--;
                     if (OthelloCells[x, y].TurnNumber == 0)
@@ -215,11 +237,11 @@ public class OthelloBoard : MonoBehaviour {
         int white = CountScoreFor(0);
         int black = CountScoreFor(1);
         if (white > black)
-            ScoreBoardText.text = "White wins " + white + ":" + black;
+            ScoreBoardText.text = "White wins " + white + " : " + black;
         else if (black > white)
-            ScoreBoardText.text = "Black wins " + black + ":" + white;
+            ScoreBoardText.text = "Black wins " + black + " : " + white;
         else
-            ScoreBoardText.text = "Draw! " + white + ":" + black;
+            ScoreBoardText.text = "Draw! " + white + " : " + black;
         ScoreBoard.gameObject.SetActive(true);
     }
     private int CountScoreFor(int owner)
