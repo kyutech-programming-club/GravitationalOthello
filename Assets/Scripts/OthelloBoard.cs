@@ -8,10 +8,14 @@ public class OthelloBoard : MonoBehaviour {
     public GameObject ScoreBoard;
     public Text ScoreBoardText;
     public Text WhiteTurnText;
+    public Text WhiteChipNumberText;
     public Text BlackTurnText;
+    public Text BlackChipNumberText;
     public GameObject Template;
     public int BoardSize = 8;
     public int TurnNumber;
+    public int WhiteChipNumber;
+    public int BlackChipNumber;
     public List<Color> PlayerChipColors;
     public List<Vector2> DirectionList;
     static OthelloBoard instance;
@@ -35,6 +39,14 @@ public class OthelloBoard : MonoBehaviour {
         ScoreBoard.GetComponent<RectTransform>().SetSiblingIndex(BoardSize * BoardSize + 1);
         GameObject.Destroy(Template);
         InitializeGame();
+
+        WhiteTurnText.text = "White Turn";
+        WhiteChipNumberText.text = "残りの石\n" + WhiteChipNumber;
+        BlackChipNumberText.text = "残りの石\n" + BlackChipNumber;
+        OthelloCells[3, 3].CellEffectText.text = TurnNumber.ToString();
+        OthelloCells[4, 4].CellEffectText.text = TurnNumber.ToString();
+        OthelloCells[4, 3].CellEffectText.text = TurnNumber.ToString();
+        OthelloCells[3, 4].CellEffectText.text = TurnNumber.ToString();
     }
     private void CreateNewCell(int x, int y, float cellAnchorSize)
     {
@@ -71,13 +83,6 @@ public class OthelloBoard : MonoBehaviour {
         OthelloCells[4, 4].OwnerID = 0;
         OthelloCells[4, 3].OwnerID = 1;
         OthelloCells[3, 4].OwnerID = 1;
-
-        WhiteTurnText.text = "White Turn";
-
-        OthelloCells[3, 3].CellEffectText.text = TurnNumber.ToString();
-        OthelloCells[4, 4].CellEffectText.text = TurnNumber.ToString();
-        OthelloCells[4, 3].CellEffectText.text = TurnNumber.ToString();
-        OthelloCells[3, 4].CellEffectText.text = TurnNumber.ToString();
     }
     internal bool CanPlaceHere(Vector2 location)
     {
@@ -107,6 +112,11 @@ public class OthelloBoard : MonoBehaviour {
         }
         OthelloCells[(int)othelloCell.Location.x, (int)othelloCell.Location.y].OwnerID = CurrentTurn;
         OthelloCells[(int)othelloCell.Location.x, (int)othelloCell.Location.y].TurnNumber++;
+        if (CurrentTurn == 0) WhiteChipNumber--;
+        else BlackChipNumber--;
+
+        WhiteChipNumberText.text = "残りの石\n" + WhiteChipNumber;
+        BlackChipNumberText.text = "残りの石\n" + BlackChipNumber;
     }
     private OthelloCell FindAllyChipOnOtherSide(Vector2 directionVector, Vector2 from, bool EnemyFound)
     {
@@ -163,15 +173,19 @@ public class OthelloBoard : MonoBehaviour {
     internal void EndTurn(bool isAlreadyEnded)
     {
         CurrentTurn = EnemyID;
-        if (CurrentTurn == 0)
-        {
-            WhiteTurnText.text = "White Turn";
-            BlackTurnText.text = "";
-        }
-        else 
+        if (WhiteChipNumber + BlackChipNumber == 0) 
+            GameOver();
+        if ((WhiteChipNumber == 0 && CurrentTurn == 0) || (BlackChipNumber == 0 && CurrentTurn == 1))
+            EndTurn(true);
+        if (CurrentTurn == 1)
         {
             WhiteTurnText.text = "";
             BlackTurnText.text = "Black Turn";
+        }
+        else
+        {
+            WhiteTurnText.text = "White Turn";
+            BlackTurnText.text = "";
         }
         for (int y = 0; y < BoardSize; y++)
         {
