@@ -135,6 +135,7 @@ public class OthelloBoard : MonoBehaviour {
             OthelloCells[(int)location.x, (int)location.y].OwnerID = CurrentTurn;
             OthelloCells[(int)location.x, (int)location.y].TurnNumber = TurnNumber+1;
         }
+        OthelloCells[(int)to.Location.x, (int)to.Location.y].TurnNumber = TurnNumber + 1;
     }
     internal void EraseCellOverdTurn()
     {
