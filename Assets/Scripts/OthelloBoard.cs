@@ -198,7 +198,7 @@ public class OthelloBoard : MonoBehaviour {
         if (WhiteChipNumber + BlackChipNumber == 0) 
             GameOver();
         if ((WhiteChipNumber == 0 && CurrentTurn == 0) || (BlackChipNumber == 0 && CurrentTurn == 1))
-            EndTurn(true);
+            CurrentTurn = EnemyID;
         if (CurrentTurn == 1)
         {
             WhiteTurnText.text = "";
