@@ -178,7 +178,8 @@ MonoBehaviour:
   WhiteTurnText: {fileID: 881949366}
   BlackTurnText: {fileID: 2065674436}
   Template: {fileID: 927732287}
-  BoardSize: 6
+  BoardSize: 8
+  TurnNumber: 10
   PlayerChipColors:
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 1}
@@ -679,7 +680,7 @@ MonoBehaviour:
   ChipImage: {fileID: 635099615}
   Location: {x: 0, y: 0}
   CellEffectText: {fileID: 2065124328}
-  TurnNumber: 5
+  TurnNumber: 10
 --- !u!224 &927732292
 RectTransform:
   m_ObjectHideFlags: 0

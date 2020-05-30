@@ -11,6 +11,7 @@ public class OthelloBoard : MonoBehaviour {
     public Text BlackTurnText;
     public GameObject Template;
     public int BoardSize = 8;
+    public int TurnNumber;
     public List<Color> PlayerChipColors;
     public List<Vector2> DirectionList;
     static OthelloBoard instance;
@@ -73,11 +74,10 @@ public class OthelloBoard : MonoBehaviour {
 
         WhiteTurnText.text = "White Turn";
 
-        OthelloCells[3, 3].CellEffectText.text = "5";
-        OthelloCells[4, 4].CellEffectText.text = "5";
-        OthelloCells[4, 3].CellEffectText.text = "5";
-        OthelloCells[3, 4].CellEffectText.text = "5";
-
+        OthelloCells[3, 3].CellEffectText.text = TurnNumber.ToString();
+        OthelloCells[4, 4].CellEffectText.text = TurnNumber.ToString();
+        OthelloCells[4, 3].CellEffectText.text = TurnNumber.ToString();
+        OthelloCells[3, 4].CellEffectText.text = TurnNumber.ToString();
     }
     internal bool CanPlaceHere(Vector2 location)
     {
@@ -106,7 +106,7 @@ public class OthelloBoard : MonoBehaviour {
             }
         }
         OthelloCells[(int)othelloCell.Location.x, (int)othelloCell.Location.y].OwnerID = CurrentTurn;
-        OthelloCells[(int)othelloCell.Location.x, (int)othelloCell.Location.y].TurnNumber = 6;
+        OthelloCells[(int)othelloCell.Location.x, (int)othelloCell.Location.y].TurnNumber++;
     }
     private OthelloCell FindAllyChipOnOtherSide(Vector2 directionVector, Vector2 from, bool EnemyFound)
     {
@@ -133,7 +133,7 @@ public class OthelloBoard : MonoBehaviour {
         for (Vector2 location = from.Location + directionVector; location != to.Location; location += directionVector)
         {
             OthelloCells[(int)location.x, (int)location.y].OwnerID = CurrentTurn;
-            OthelloCells[(int)location.x, (int)location.y].TurnNumber = 6;
+            OthelloCells[(int)location.x, (int)location.y].TurnNumber = TurnNumber+1;
         }
     }
     internal void EraseCellOverdTurn()
@@ -148,7 +148,7 @@ public class OthelloBoard : MonoBehaviour {
                     if (OthelloCells[x, y].TurnNumber == 0)
                     {
                         OthelloCells[x, y].OwnerID = -1;
-                        OthelloCells[x, y].TurnNumber = 5;
+                        OthelloCells[x, y].TurnNumber = TurnNumber;
                         OthelloCells[x, y].CellEffectText.text = "";
                     }
                     else
