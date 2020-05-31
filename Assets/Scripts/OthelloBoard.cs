@@ -41,8 +41,8 @@ public class OthelloBoard : MonoBehaviour {
         InitializeGame();
 
         WhiteTurnText.text = "White Turn";
-        WhiteChipNumberText.text = "残りの石\n\n" + WhiteChipNumber;
-        BlackChipNumberText.text = "残りの石\n\n" + BlackChipNumber;
+        WhiteChipNumberText.text = "Stones\n\n" + WhiteChipNumber;
+        BlackChipNumberText.text = "Stones\n\n" + BlackChipNumber;
         OthelloCells[2, 2].CellEffectText.text = TurnNumber.ToString();
         OthelloCells[3, 3].CellEffectText.text = TurnNumber.ToString();
         OthelloCells[2, 3].CellEffectText.text = TurnNumber.ToString();

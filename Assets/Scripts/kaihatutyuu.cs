@@ -22,7 +22,7 @@ public class kaihatutyuu : MonoBehaviour
     }
 
     public void PushButtonMemo() {
-        DisplayMessage("開発中");
+        DisplayMessage("Coming Soon!");
     }
 
 
