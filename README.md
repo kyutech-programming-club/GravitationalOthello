@@ -1,4 +1,4 @@
-# Gravitational Othello
+# Gravity Othello
 unity version 2019.3.14f1
 
 
