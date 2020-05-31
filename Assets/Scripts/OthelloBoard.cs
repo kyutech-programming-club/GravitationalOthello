@@ -43,10 +43,10 @@ public class OthelloBoard : MonoBehaviour {
         WhiteTurnText.text = "White Turn";
         WhiteChipNumberText.text = "残りの石\n" + WhiteChipNumber;
         BlackChipNumberText.text = "残りの石\n" + BlackChipNumber;
+        OthelloCells[2, 2].CellEffectText.text = TurnNumber.ToString();
         OthelloCells[3, 3].CellEffectText.text = TurnNumber.ToString();
-        OthelloCells[4, 4].CellEffectText.text = TurnNumber.ToString();
-        OthelloCells[4, 3].CellEffectText.text = TurnNumber.ToString();
-        OthelloCells[3, 4].CellEffectText.text = TurnNumber.ToString();
+        OthelloCells[2, 3].CellEffectText.text = TurnNumber.ToString();
+        OthelloCells[3, 2].CellEffectText.text = TurnNumber.ToString();
     }
     private void CreateNewCell(int x, int y, float cellAnchorSize)
     {
@@ -79,14 +79,14 @@ public class OthelloBoard : MonoBehaviour {
                 OthelloCells[x, y].OwnerID = -1;
             }
         }
+        OthelloCells[2, 2].OwnerID = 0;
         OthelloCells[3, 3].OwnerID = 0;
-        OthelloCells[4, 4].OwnerID = 0;
-        OthelloCells[4, 3].OwnerID = 1;
-        OthelloCells[3, 4].OwnerID = 1;
+        OthelloCells[2, 3].OwnerID = 1;
+        OthelloCells[3, 2].OwnerID = 1;
+        OthelloCells[3, 1].OwnerID = 2;
+        OthelloCells[1, 3].OwnerID = 2;
         OthelloCells[4, 2].OwnerID = 2;
         OthelloCells[2, 4].OwnerID = 2;
-        OthelloCells[5, 3].OwnerID = 2;
-        OthelloCells[3, 5].OwnerID = 2;
 
     }
     internal void ShowAllCanPlace()
