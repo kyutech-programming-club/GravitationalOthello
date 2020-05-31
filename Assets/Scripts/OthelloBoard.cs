@@ -136,8 +136,8 @@ public class OthelloBoard : MonoBehaviour {
         if (CurrentTurn == 0) WhiteChipNumber--;
         else BlackChipNumber--;
 
-        WhiteChipNumberText.text = "残りの石\n\n" + WhiteChipNumber;
-        BlackChipNumberText.text = "残りの石\n\n" + BlackChipNumber;
+        WhiteChipNumberText.text = "Stones\n\n" + WhiteChipNumber;
+        BlackChipNumberText.text = "Stones\n\n" + BlackChipNumber;
     }
     private OthelloCell FindAllyChipOnOtherSide(Vector2 directionVector, Vector2 from, bool EnemyFound)
     {
