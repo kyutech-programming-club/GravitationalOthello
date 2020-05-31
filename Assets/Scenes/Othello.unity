@@ -461,7 +461,7 @@ MonoBehaviour:
   BlackTurnText: {fileID: 2065674436}
   BlackChipNumberText: {fileID: 780531526}
   Template: {fileID: 927732287}
-  BoardSize: 8
+  BoardSize: 6
   TurnNumber: 10
   WhiteChipNumber: 30
   BlackChipNumber: 30
@@ -1183,13 +1183,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979240644}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -224.84003, y: -0.03, z: -9.3}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 296, y: 307, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &979240646
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1516,8 +1516,8 @@ Canvas:
   m_GameObject: {fileID: 1521969660}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 979240647}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
