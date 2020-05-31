@@ -41,8 +41,8 @@ public class OthelloBoard : MonoBehaviour {
         InitializeGame();
 
         WhiteTurnText.text = "White Turn";
-        WhiteChipNumberText.text = "残りの石\n" + WhiteChipNumber;
-        BlackChipNumberText.text = "残りの石\n" + BlackChipNumber;
+        WhiteChipNumberText.text = "残りの石\n\n" + WhiteChipNumber;
+        BlackChipNumberText.text = "残りの石\n\n" + BlackChipNumber;
         OthelloCells[2, 2].CellEffectText.text = TurnNumber.ToString();
         OthelloCells[3, 3].CellEffectText.text = TurnNumber.ToString();
         OthelloCells[2, 3].CellEffectText.text = TurnNumber.ToString();
@@ -87,7 +87,6 @@ public class OthelloBoard : MonoBehaviour {
         OthelloCells[1, 3].OwnerID = 2;
         OthelloCells[4, 2].OwnerID = 2;
         OthelloCells[2, 4].OwnerID = 2;
-
     }
     internal void ShowAllCanPlace()
     {
@@ -137,8 +136,8 @@ public class OthelloBoard : MonoBehaviour {
         if (CurrentTurn == 0) WhiteChipNumber--;
         else BlackChipNumber--;
 
-        WhiteChipNumberText.text = "残りの石\n" + WhiteChipNumber;
-        BlackChipNumberText.text = "残りの石\n" + BlackChipNumber;
+        WhiteChipNumberText.text = "残りの石\n\n" + WhiteChipNumber;
+        BlackChipNumberText.text = "残りの石\n\n" + BlackChipNumber;
     }
     private OthelloCell FindAllyChipOnOtherSide(Vector2 directionVector, Vector2 from, bool EnemyFound)
     {
@@ -237,11 +236,11 @@ public class OthelloBoard : MonoBehaviour {
         int white = CountScoreFor(0);
         int black = CountScoreFor(1);
         if (white > black)
-            ScoreBoardText.text = "White wins " + white + " : " + black;
+            ScoreBoardText.text = "White wins\n" + white + " : " + black;
         else if (black > white)
-            ScoreBoardText.text = "Black wins " + black + " : " + white;
+            ScoreBoardText.text = "Black wins\n" + black + " : " + white;
         else
-            ScoreBoardText.text = "Draw! " + white + " : " + black;
+            ScoreBoardText.text = "Draw\n" + white + " : " + black;
         ScoreBoard.gameObject.SetActive(true);
     }
     private int CountScoreFor(int owner)
